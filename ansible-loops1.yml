@@ -1,0 +1,43 @@
+---
+- name: Loops in Ansible Playbook Part I
+  hosts: all
+  remote_user: root
+  become: yes
+
+  vars:
+    alpha: [ 'a', 'b', 'c', 'd' ]
+    numbers: [ 1, 2, 3, 4 ]
+
+  tasks:
+    # Add multiple users in one go
+    - name: add several users
+      user:
+        name: "{{ item }}"
+        state: absent
+        groups: "games"
+      with_items:
+        - testuser1
+        - testuser2
+        - testuser3
+        - testuser4
+        - testuser5
+
+
+    - name: add several users
+      user:
+        name: "{{ item.name }}"
+        state: absent
+        groups: "{{ item.groups }}"
+      with_items:
+        - { name: 'testuser6', groups: 'nobody' }
+        - { name: 'testuser7', groups: 'nobody' }
+        - { name: 'testuser8', groups: 'flatpak' }
+        - { name: 'testuser9', groups: 'flatpak' }
+
+    - name: Loop over set of collection variable
+      debug:
+        msg: "{{ item.0 }} and {{ item.1 }}"
+      with_together:
+        - "{{ alpha }}"
+        - "{{ numbers }}"
+

@@ -1,0 +1,26 @@
+---
+- name: Introduction Ansible Playbook
+  hosts: all
+  remote_user: root
+  become: yes
+
+  tasks:
+    - name: Checking connection via ping
+      ping:
+    - name: Ensure Neofetch is the latest version
+      yum:
+        name: neofetch
+        state: latest
+    - name: Ensure Nginx is the latest version
+      yum:
+        name: nginx
+        state: latest
+    - name: Ensure Nginx is running
+      service:
+        name: nginx
+        state: started
+    - name: Ensure Cockpit is running
+      service:
+        name: cockpit
+        state: started
+     

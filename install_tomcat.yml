@@ -1,0 +1,53 @@
+---
+- name: Install and configure tomcat using ansible
+  hosts: all
+  remote_user: root
+  become: yes
+
+  vars:
+    java_version: java-11-openjdk-headless
+    alternative_path: java-11-openjdk-11.0.21.0.9-2.el9.x86_64
+    tomcat_version: 9.0.84
+    tomcat_server: 8090
+
+  tasks:
+    - name: Update all packages on machine
+      yum:
+        name: "*"
+        state: latest
+      ignore_errors: yes
+
+    - name: Install java on machine
+      yum:
+        name: "{{ java_version }}"
+        state: latest
+
+    - name: Set java 8 alternative on machine
+      alternatives:
+        name: java
+        link: /usr/bin/java
+        path: /usr/lib/jvm/{{alternative_path}}/bin/java
+
+
+    - name: Download tomcat tar file
+      get_url:
+        url: https://dlcdn.apache.org/tomcat/tomcat-9/v{{tomcat_version}}/bin/apache-tomcat-{{tomcat_version}}.tar.gz
+        dest: /usr/local
+
+    - name: Extract tomcat file
+      unarchive:
+        src: /usr/local/apache-tomcat-{{tomcat_version}}.tar.gz
+        dest: /usr/local
+        remote_src: yes
+
+    - name: Rename tomcat dir
+      command: mv /usr/local/apache-tomcat-{{tomcat_version}} /usr/local/tomcat
+      ignore_errors: yes
+
+    - name: Replacing sefault port with required port
+      template:
+        src: server.xml.j2
+        dest: /usr/local/tomcat/conf/server.xml
+
+    - name: Starting tomcat process
+      shell: nohub /usr/local/tomcat/bin/startup.sh &

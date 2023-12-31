@@ -1,0 +1,38 @@
+---
+- name: Loops in Ansible Playbook Part II
+  hosts: all
+  remote_user: root
+  become: yes
+
+  vars:
+    alpha: [ 'a', 'b', 'c', 'd' ]
+    numbers: [ 1, 2, 3, 4 ]
+
+  tasks:
+    # Add multiple users in one go
+    - name: add several users
+      debug:
+        msg: "{{ item }}"
+      with_random_choice:
+        - "go through the door"
+        - "drink from the goblet"
+        - "press the red button"
+        - "do nothing"
+
+    # Looping over a list with an index
+    - name: Looping over a list
+      debug:
+        msg: "At array position {{ item.0 }} there is a value {{ item.1 }}"
+      with_indexed_items:
+        - "{{ alpha }}"
+
+    # Do untill loop
+    - name: Ensure Nginx is running
+      service:
+        name: nginx
+        state: started
+      register: result
+      until: result.changed == True
+      retries: 10
+      delay: 5
+

@@ -1,0 +1,36 @@
+---
+- name: Overview of ansible block
+  hosts: all
+  remote_user: root
+  become: yes
+
+  tasks:
+    - block:
+      - name: List all files/dirs in /usr location
+        command: "ls -l /usr"
+        register: user_out
+
+      - name: List all files/dirs in /root location
+        command: "ls -l /root"
+        register: root_out
+
+      - name: List all files/dirs in user's home directpry location
+        command: "ls -l ~/"
+        register: userhome_out
+
+      - name: List all files/dirs in /bin location
+        command: "ls -l /bin"
+        register: bin_out
+
+      become: 'yes'
+      ignore_errors: yes
+
+    - name: List all files/dirs in user's home directpry location
+      command: "ls -l ~/"
+      register: userhome_out
+
+    - debug: var=usr_out
+    - debug: var=root_out
+    - debug: var=userhome_out
+#    - debug: var=bin_out
+

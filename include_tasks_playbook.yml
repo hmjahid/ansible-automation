@@ -1,0 +1,14 @@
+---
+- name: Overview of ansible include tasks
+  hosts: localhost
+  remote_user: root
+  become: yes
+  gather_facts: false
+
+  tasks:
+    - name: Play 1 - Task 1
+      debug:
+        msg: "Play 1 - Task 1"
+
+- import_playbook: include_tasks_play.yml
+

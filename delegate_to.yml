@@ -1,0 +1,17 @@
+---
+- name: Overview of delegate to in ansible
+  hosts: all
+  remote_user: root
+  become: yes
+
+  vars:
+    tmplog: "/tmp/connection.log"
+
+  tasks:
+    - name: create tmplog
+      shell: test ! -f {{ tmplog }} && touch {{ tmplog }}
+      failed_when: false
+
+    - name: delegate_to
+      shell: echo "delegate_to . {{ inventory_hostname }} $(hostname)." >> {{ tmplog }}
+      delegate_to: localhost

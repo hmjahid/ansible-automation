@@ -1,0 +1,35 @@
+---
+- name: Overiew of ansible membership tests
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    a : "Hello, I am Md JAhid HasaN"
+    b : 10
+    c : "20"
+    d : [ 1, 5, 9, 10, 15, 109 ]
+    x : "/root/ansible"
+    y : "/root/ansible/playbook_intro/intro_playbook.yml"
+
+  tasks:
+    - name: Operations on variables
+      debug:
+        msg:
+        - "The list is - {{ d }}, Value of c is - {{ c }} and Value of b is - {{ b }}"
+        - "Is b member of d : {{ b in d }}"
+        - "Is c member of d : {{ c in d }}"
+        - "Is 25 member of d : {{ 25 in d }}"
+        - "Is c not a member of d : {{ c not in d }}"
+
+    - name: Test operators
+      debug:
+        msg:
+        - "Is a is defined? {{ a is defined }}"
+        - "Is b is defined? {{ b is defined }}"
+        - "Is c is defined? {{ c is defined }}"
+        - "Is a is uppercase? {{ a is upper }}"
+        - "Is a is lowercase? {{ a is lower }}"
+        - "Is c is string? {{ c is string }}"
+        - "Is y is file? {{ y is file }}"
+        - "Is x is directory? {{ x is directory }}"
+        - "Is y is directory? {{ y is directory }}"

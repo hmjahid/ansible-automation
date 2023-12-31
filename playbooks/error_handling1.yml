@@ -1,0 +1,19 @@
+---
+- name: Overview of ansible error handling
+  hosts: all
+  remote_user: root
+  become: yes
+
+  tasks:
+    - name: List all files/dirs in /etc location
+      command: "ls /etc"
+      register: home_out
+      ignore_errors: yes
+    - debug: var=home_out
+
+    - name: List all files/dirs in /tmp location
+      command: "ls /tmp"
+      register: tmp_out
+    - debug: var=tmp_out
+
+

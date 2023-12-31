@@ -1,0 +1,25 @@
+---
+- name: Overiew of ansible conditional statements
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    x : 20
+    y : 10
+
+  tasks:
+    - name: Operations for conditional statements
+      debug:
+        msg:
+        - "Value of x : {{ x }}, Value of y : {{ y }}"
+
+    - name: Operations for conditional statement I
+      debug:
+        msg:
+        - "x is smaller than y"
+      when: x < y
+    - name: Operations for conditional statement II
+      debug:
+        msg:
+        - "x is not smaller than y"
+      when: x > y

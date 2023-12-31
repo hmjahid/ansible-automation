@@ -1,0 +1,20 @@
+---
+- name: Overiew of ansible arithmetic operations
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    a: 10
+    b: 20
+
+  tasks:
+    - name: Operations on variables
+      debug:
+        msg:
+        - "Value of a is : {{ a }}"
+        - "Value of b is : {{ b }}"
+        - "Addition of a & b is : {{ a + b }}"
+        - "Substraction of a & b is : {{ a - b }}"
+        - "Multiplication of a & b is : {{ a * b }}"
+        - "Division of a & b is : {{ a / b }}"
+        - "Modulas of a & b is : {{ a % b }}"

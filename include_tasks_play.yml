@@ -1,0 +1,7 @@
+- name: Overview of ansible include tasks
+  hosts: localhost
+
+  tasks:
+    - name: Play 3 - Task 1
+      debug:
+        msg: "Play 3 - Task 1"

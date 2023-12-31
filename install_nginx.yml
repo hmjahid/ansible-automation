@@ -1,0 +1,33 @@
+---
+- name: Install nginx webserver
+  hosts: all
+  remote_user: root
+  become: yes
+
+  vars:
+    custom_var: 123abc
+
+  tasks:
+    - name: Ensure nginx is the latest version
+      yum:
+        name: nginx
+        state: present
+      notify:
+        - Ensure nginx is running
+
+    - name: Updating index html file
+      template:
+        src: index.html.j2
+        dest: /usr/share/nginx/html/index.html
+      notify:
+        - Ensure nginx restart
+
+  handlers:
+    - name: Ensure Nginx is running
+      service:
+        name: nginx
+        state: started
+    - name: Ensure nginx restart
+      service:
+        name: nginx
+        state: restarted

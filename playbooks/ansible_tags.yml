@@ -1,0 +1,43 @@
+---
+- name: Overiew of ansible tags
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Operations using tags 1
+      debug:
+        msg:
+        - "Hi, this is a debug message 1"
+      tags:
+        - first
+
+    - name: Operations using tags 2
+      debug:
+        msg:
+        - "Hi, this is a debug message 2"
+      tags:
+        - Second
+        - Common
+
+    - name: Operations using tags 3
+      debug:
+        msg:
+        - "Hi, this is a debug message 3"
+
+    - name: Operations using tags 4
+      debug:
+        msg:
+        - "Hi, this is a debug message 4"
+
+    - name: Operations using tags 5
+      debug:
+        msg:
+        - "Hi, this is a debug message 5"
+      tags:
+        - first
+
+    - name: Operations using tags 6
+      debug:
+        msg:
+        - "Hi, this is a debug message 6"
+

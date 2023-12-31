@@ -1,0 +1,22 @@
+---
+- name: Overview of ansible register and set_facts
+  hosts: all
+  remote_user: root
+  become: yes
+
+  tasks:
+    - name: Retrive installed shell version
+      shell: "bash --version"
+      register: bash_ver
+
+    - set_fact:
+        bash_version: "{{ bash_ver.stdout_lines[0].split()[3] }}"
+        my_value: Bash Version
+
+    - debug:
+        var: bash_version
+
+
+#    - name: Debug value show
+#      debug:
+#        var: bash_ver.stdout_lines[0].split()[3]

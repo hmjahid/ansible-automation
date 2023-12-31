@@ -1,0 +1,33 @@
+---
+- name: This is overview of ansible data collection
+  hosts: all
+  remote_user: root
+  become: yes
+
+  vars:
+    xyz: Hello, this is XYZ
+    packages: ['wget', 'curl', 'unzip', 'vim', 'nano']
+    cities:
+      - New York
+      - London
+      - Tokyo
+      - Kuala Lumpur
+      - Ankara
+      - Dhaka
+    web_server: {'Linux': 'httpd', 'Unix': 'apache2'}
+
+  tasks:
+    - name: This is data collection retrieval
+      debug:
+        var: xyz
+    - name: Getting sequence data collection F 1
+      debug:
+        var: packages
+
+    - name: Getting sequence data collection F 2
+      debug:
+        var: cities
+
+    - name: Getting sequence data collection F 3
+      debug:
+        var: web_server

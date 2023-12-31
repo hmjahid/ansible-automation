@@ -1,0 +1,25 @@
+---
+- name: Overview of ansible handler implementation
+  hosts: all
+  remote_user: root
+  become: yes
+
+  tasks:
+    - name: Ensure Nginx is the latest version
+      yum:
+        name: nginx
+        state: present
+      notify:
+        - Ensure nginx is running
+        - Ensure nginx status
+
+  handlers:
+    - name: Ensure nginx is running
+      service:
+        name: nginx
+        state: started
+
+    - name: Ensure nginx status
+      service:
+        name: nginx
+        status: restart

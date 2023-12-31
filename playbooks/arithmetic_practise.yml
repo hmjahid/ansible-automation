@@ -1,0 +1,32 @@
+---
+- name: Overiew of ansible arithmetic operations practise
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    a: 10
+    b: "{{a*10}}"
+
+  vars_prompt:
+    - name: x
+      prompt: Please enter value of x
+      private: no
+
+    - name: y
+      prompt: Please enter value of y
+      private: no
+
+  tasks:
+    - name: Operations on variables
+      debug:
+        msg:
+        - "Value of a is : {{ a }}"
+        - "Value of b is : {{ b }}"
+#       - "Addition of a & b is : {{ a + b }}"
+#       - "Substraction of a & b is : {{ a - b }}"
+#       - "Multiplication of a & b is : {{ a * b }}"
+#       - "Division of a & b is : {{ a / b }}"
+#       - "Modulas of a & b is : {{ a % b }}"
+        - "Addition of user defined raw values of x & y is : {{ x + y }}"
+        - "Addition of user defined values of x & y is : {{ x | int + y | int }}"
+        - "Multiplication of user defined values of x & y is : {{ x|int * y|int }}"

@@ -1,0 +1,29 @@
+---
+- name: Overiew of ansible comparison operators
+  hosts: localhost
+  gather_facts: false
+  vars:
+    a : "Hello, I am Md JAhid HasaN"
+    b : 10
+    c : 20
+    d : "HELLO"
+    e : "hello"
+
+  tasks:
+    - name: Operations on variables
+      debug:
+        msg:
+        - "The value of b is - {{ b }}, and the value of c is - {{ c }}"
+        - " Is b greater than c : {{ b > c }}"
+        - " Is b less than c : {{ b < c }}"
+        - " Is b equals to c : {{ b == c }}"
+        - " Is b not equals to c : {{ b != c }}"
+        - " Is b greater than or equals to c : {{ b >= c }}"
+        - " Is b less than or equals to c : {{ b <= c }}"
+        - "Below comparison is for string"
+        - "The value of d is - {{ d }}, and the value of e is - {{ e }}"
+        - " Is d greater than e : {{ d > e }}"
+        - " Is d less than e : {{ d < e }}"
+        - " Is d equals to e : {{ d == e }}"
+        - " Is d not equals to e : {{ d != e }}"
+        - " Is d|lower equals to e : {{ d|lower == e }}"

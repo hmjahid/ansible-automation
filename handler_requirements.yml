@@ -1,0 +1,21 @@
+---
+- name: Overview of ansible handler requirements
+  hosts: all
+  remote_user: root
+  become: yes
+
+  tasks:
+    - name: Ensure Nginx is the latest version
+      yum:
+        name: nginx
+        state: present
+      register: nginx_installation_status
+
+
+    - name: Ensure nginx is running
+      service:
+        name: nginx
+        state: started
+        when: nginx_installation_status.changed == True
+
+
